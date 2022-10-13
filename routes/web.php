@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/detail', function () {
-    return view('detail');
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['mitra'])->group(function () {
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+});
 });
 
-Route::get('/result', function () {
-    return view('result');
-});
-
+require __DIR__.'/auth.php';

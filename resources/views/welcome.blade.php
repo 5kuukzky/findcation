@@ -55,7 +55,7 @@
                             shadow transition delay-75 -mt-1">
                             <div id="navbar-text" class="text-white transition delay-75 w-screen">
                                 <button class="text-green-500 w-full p-5 block ">
-                                    <a href="./"> Home </a>
+                                    <a href="./"> Dashboard </a>
                                 </button>
                                 <button class="text-green-500 w-full p-5 block">
                                     <a href="./result"> Recomendation </a>
@@ -76,7 +76,7 @@
                     class="px-8 py-5
                     transition transform hover:-translate-y-0.5
                     motion-reduce:transition-none motion-reduce:hover:transform-none ...">
-                    Home</a>
+                    Dashboard</a>
                 <a id="rec-desktop" href="./result"
                     class="px-8 py-5
                     transition transform hover:-translate-y-0.5

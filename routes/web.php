@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\WisataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', [IndexController::class, 'index']);
+Route::get('wisata/{slug}', [WisataController::class, 'show']);
+
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['mitra'])->group(function () {
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+        Route::get('add-wisata', [WisataController::class, 'index']);
+        Route::post('wisata', [WisataController::class, 'store']);
+        Route::get('selectProv', [WisataController::class, 'provinsi'])->name('provinsi.index');
+        Route::get('selectRegenc/{id}', [WisataController::class, 'regency']);
+    });
 });
-});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

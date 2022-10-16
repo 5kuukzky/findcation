@@ -13,9 +13,11 @@
     <title>Findcation</title>
 
     <!-- Fonts -->
-    {{-- <link href="https://fonts.googleapis.com/css2
+    {{--
+    <link href="https://fonts.googleapis.com/css2
     ?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
-    {{-- <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> --}}
+    {{--
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
@@ -33,8 +35,7 @@
 <body class="antialiased bg-zinc-50">
     <div>
         {{-- Navbar --}}
-        <div id="navbar"
-            class="z-10 flex flex-wrap justify-between
+        <div id="navbar" class="z-10 flex flex-wrap justify-between
             md:justify-around items-center h-16 fixed
             w-full top-0 transition delay-75 bg-opacity-95 bg-zinc-50">
             <a href="./#" id="findcation"
@@ -48,21 +49,27 @@
                         <em id="fa-bars" class="fa-solid text-zinc-50 transition delay-75"></em>
                     </button>
                     <div>
-                        <ul id="mobile-nav"
-                            class="group-hover:block !absolute hidden
-                            float-right right-0 bg-zinc-50
-                            text-green-500 bg-opacity-95 drop-
-                            shadow transition delay-75 -mt-1">
+                        <ul id="mobile-nav" class="group-hover:block !absolute hidden
+                        float-right right-0 bg-zinc-50
+                        text-green-500 bg-opacity-95 drop-
+                        shadow transition delay-75 -mt-1">
                             <div id="navbar-text" class="text-white transition delay-75 w-screen">
-                                <button class="text-green-500 w-full p-5 block ">
-                                    <a href="./"> Dashboard </a>
-                                </button>
+
                                 <button class="text-green-500 w-full p-5 block">
                                     <a href="./result"> Recomendation </a>
                                 </button>
+                                @if(!Auth::check())
                                 <button class="text-green-500 w-full p-5 block">
                                     <a href="./#"> Login </a>
                                 </button>
+                                <button class="text-green-500 w-full p-5 block">
+                                    <a href="./#"> Regist </a>
+                                </button>
+                                @else
+                                <button class="text-green-500 w-full p-5 block">
+                                    <a href="./#"> Logout </a>
+                                </button>
+                                @endif
                             </div>
                         </ul>
                     </div>
@@ -72,67 +79,62 @@
             {{-- Desktop --}}
 
             <ul id="desktop" class="md:flex justify-around items-center hidden text-green-500 transition">
-                <a id="home-desktop" href="./"
-                    class="px-8 py-5
-                    transition transform hover:-translate-y-0.5
-                    motion-reduce:transition-none motion-reduce:hover:transform-none ...">
-                    Dashboard</a>
-                <a id="rec-desktop" href="./result"
-                    class="px-8 py-5
+
+                <a id="rec-desktop" href="./result" class="px-8 py-5
                     transition transform hover:-translate-y-0.5
                     motion-reduce:transition-none motion-reduce:hover:transform-none ...">
                     Recomendation</a>
-                <a id="login-desktop" href="./#"
-                    class="px-8 py-5
+                @if(!Auth::check())
+                <a id="login-desktop" href="./login" class="px-8 py-5
                     transition transform hover:-translate-y-0.5
                     motion-reduce:transition-none motion-reduce:hover:transform-none ...">
                     Login</a>
+                <a id="login-desktop" href="./login" class="px-8 py-5
+                    transition transform hover:-translate-y-0.5
+                    motion-reduce:transition-none motion-reduce:hover:transform-none ...">
+                    Regist</a>
+                @else
+                <a id="login-desktop" href="#" class="px-8 py-5
+                    transition transform hover:-translate-y-0.5
+                    motion-reduce:transition-none motion-reduce:hover:transform-none ...">
+                    Logout</a>
+                @endif
 
             </ul>
         </div>
         {{-- Navbar --}}
-        {{-- Main Image  --}}
+        {{-- Main Image --}}
         <div class="flex justify-center">
             <div class="w-10/12 md:w-1/2 p-4 absolute top-0 mt-36 sm:mt-24 md:mt-36 lg:mt-48 xl:mt-60 2xl:mt-48">
                 <p class="text-3xl font-bold text-white">
                     Find <span class="text-green-500">your place</span> here!</p>
                 <input type="text" placeholder="Search your place" class="w-full px-5 py-2 rounded-lg mt-5 mb-10">
+
                 {{-- List Destinasi --}}
                 <div class="w-full h-80% hidden justify-evenly 2xl:flex">
+                    @foreach ($data as $wisata )
                     <div class="w-1/4 hover:scale-105 transition ease-in-out delay-75 cursor-pointer ">
-                        <a href="./detail">
-                            <h1 class="text-white text-lg mb-2 font-medium">Wisata Gunung Bromo</h1>
-                            <h2 class="text-white text-sm mb-2"><span class="fa-solid"></span> Probolinggo</h2>
+                        <a href="{{ url('wisata/'. $wisata->slug) }}">
+                            <h1 class="text-white text-lg mb-2 font-medium">{{ $wisata->nama }}</h1>
+                            <h2 class="text-white text-sm mb-2"><span class="fa-solid"></span> {{ $wisata->kabupaten }}
+                            </h2>
                             <img alt="destination" class="w-60 h-60 object-cover rounded-lg"
-                                src="https://picsum.photos/400" />
+                                src="{{ asset('storage/image_wisata/'. $wisata->gambar) }}" />
                         </a>
                     </div>
+
                     {{-- Loop --}}
-                    <div class="w-1/4 hover:scale-105 transition ease-in-out delay-75 cursor-pointer">
-                        <a href="./detail">
-                            <h1 class="text-white text-lg mb-2 font-medium">Wisata Gunung Bromo</h1>
-                            <h2 class="text-white text-sm mb-2"><span class="fa-solid"></span> Probolinggo</h2>
-                            <img alt="destination" class="w-60 h-60 object-cover rounded-lg"
-                                src="https://picsum.photos/400?random=2" />
-                        </a>
-                    </div>
-                    <div class="w-1/4 hover:scale-105 transition ease-in-out delay-75 cursor-pointer">
-                        <a href="./detail">
-                            <h1 class="text-white text-lg mb-2 font-medium">Wisata Gunung Bromo</h1>
-                            <h2 class="text-white text-sm mb-2"><span class="fa-solid"></span> Probolinggo</h2>
-                            <img alt="destination" class="w-60 h-60 object-cover rounded-lg"
-                                src="https://picsum.photos/400?random=3" />
-                        </a>
-                    </div>
+
                     {{-- End Loop --}}
+                    @endforeach
                 </div>
                 {{-- Destinasi --}}
             </div>
             <img alt="cover" class="w-full h-96 md:h-full object-cover min-h-full"
                 src="https://picsum.photos/id/1039/1600/700" />
         </div>
-        {{-- End of Main Image  --}}
-        {{-- SPK  --}}
+        {{-- End of Main Image --}}
+        {{-- SPK --}}
         <div class="w-full py-20 h-fit flex justify-center bg-zinc-50">
             <div class="w-10/12 p-4 md:w-1/2 md:p-0">
                 <h1 class="text-3xl text-black font-extrabold mb-1">Cara Terbaik untuk</h1>

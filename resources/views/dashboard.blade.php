@@ -12,6 +12,8 @@
                     You're logged in!
                 </div>
             </div>
+            <a href="/add-wisata" class="btn btn-thirdty mt-4">Tambah Wisata</a>
+
         </div>
     </div>
 </x-app-layout>
